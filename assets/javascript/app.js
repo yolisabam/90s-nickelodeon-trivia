@@ -15,33 +15,33 @@ var quiz = {
 
  var myQuestions = [
       {
-        question: "Question",
-        answers: {
-          a: "answer1",
-          b: "answer2",
-          c: "answer3"
-        },
+        question: "What channel does ",
+        answers: [
+           "answer1",
+           "answer2",
+           "answer3"
+        ],
 
-        correctAnswer: "c"
+        correctAnswer: "1"
       },
       {
-        question: "Question2",
-        answers: {
-          a: "answer4",
-          b: "answer5",
-          c: "answer6"
-        },
-        correctAnswer: "b"
+        question: "What Color is Earth?",
+        answers: [
+           "answer4",
+           "answer5",
+           "answer6"
+        ],
+        correctAnswer: "3"
       },
       {
         question: "Where is Waldo really?",
-        answers: {
-          a: "answer7",
-          b: "answer8",
-          c: "answer9",
-          d: "answer10"
-        },
-        correctAnswer: "d"
+        answers: [
+           "answer7",
+           "answer8",
+           "answer9",
+           "answer10"
+        ],
+        correctAnswer: "2"
       }
 ];
 
@@ -54,13 +54,63 @@ console.log(myQuestions[2].correctAnswer);
 // When the page loads...
 
     // We run a function that 
+function buildQuiz(){
 
     //Calls the countdown functions...
     countdown();
     startCountdown();
-    // ..and dynamically builds out the quiz and renders it to "#quiz-container"
+
+    for (i=0; i<myQuestions.length; i++){
+
+      $("#quiz-container").append('<div id="q' + i +'"></div>');
+      $("#q" + i).append(myQuestions[i].question);
+      $("#q" + i).append()
 
 
+      // for (var j=0; j<myQuestions.length; j++){ 
+      //  var radioInput = $('<input>').attr({
+      //   type: 'radio',
+      //   name 'rbtnCount',
+      //   });
+      //  $("#q" + i).append(radioInput);
+
+      //  }
+
+      }
+
+    }
+
+   
+
+//     for (i = 0; i < 20; i++) {
+//     $('<input type="radio" name="dynradio" />').appendTo('.your_container');
+// }
+//     // ..and dynamically builds out the quiz and renders it to "#quiz-container"
+//     $('#q1').html(myQuestions[0].question);
+//     $('#q2').html(myQuestions[1].question);
+//     $('#q3').html(myQuestions[2].question);
+
+//     for (i=0; i<4;i++) {}
+//       var radioInput = $('<input>').attr({
+//       type: 'radio',
+//       name: 'rbtnCount'
+//       })
+//       $('#q1').append(radioInput);
+//       $('#q2').append(radioInput);
+//       $('#q3').append(radioInput);
+
+      
+// Steps to populating quiz:
+   
+  // For loop that
+      //Dynamically populates divs (based on array lenghth) to #quiz-container
+      //Targets question in "myQuestions" array  
+      // 
+    //Appends question 
+
+
+
+buildQuiz();
 //We declare a function to start the countdown
 function startCountdown() {
   showQuiz = setInterval(countdown, 1000);
