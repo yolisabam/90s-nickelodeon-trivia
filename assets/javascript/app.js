@@ -64,15 +64,17 @@ function buildQuiz(){
 
       $("#quiz-container").append('<div id="q' + i +'"></div>');
       $("#q" + i).append(myQuestions[i].question);
-      $("#q" + i).append()
+     
+      for (j = 0; j < 4; j++) {
+        $('<input type="radio" name="dynradio" />').appendTo("#q" + i);
+      }
 
-
-      // for (var j=0; j<myQuestions.length; j++){ 
+      // ???? for (var j=0; j<myQuestions.length; j++){ 
       //  var radioInput = $('<input>').attr({
       //   type: 'radio',
       //   name 'rbtnCount',
       //   });
-      //  $("#q" + i).append(radioInput);
+      //  $("#q" + i).append(radioInput);????
 
       //  }
 
@@ -95,18 +97,9 @@ function buildQuiz(){
 //       type: 'radio',
 //       name: 'rbtnCount'
 //       })
-//       $('#q1').append(radioInput);
-//       $('#q2').append(radioInput);
-//       $('#q3').append(radioInput);
+//       
 
       
-// Steps to populating quiz:
-   
-  // For loop that
-      //Dynamically populates divs (based on array lenghth) to #quiz-container
-      //Targets question in "myQuestions" array  
-      // 
-    //Appends question 
 
 
 
