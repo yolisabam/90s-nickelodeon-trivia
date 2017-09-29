@@ -8,105 +8,163 @@ var quiz = {
   correctAnswers: 0,
   wrongAnswers: 0,
   noAnswers: 0,
-  time: 10        
+  time: 20        
   };
 
 //We declare all quiz questions in an array to be able to compare data easily
 
- var myQuestions = [
+var myQuestions = [
       {
-        question: "What channel does ",
+        question: "Who Lives In A Pineapple Under The Sea?",
         answers: [
-           "answer1",
-           "answer2",
-           "answer3"
+           "Plankton",
+           "Ren & Stimpy",
+           "Spongebob Squarepants",
+           "Avatar"
         ],
 
+        correctAnswer: "2"
+      },  
+      {
+        question: "Who Loves Orange Soda?",
+        answers: [
+           "Kel Loves Orange Soda", 
+           "Arnold Loves Orange Soda",
+           "Kora Loves Orange Soda",
+           "Patrick Loves Orange Soda"
+        ],
+
+        correctAnswer: "0"
+      },
+      {
+        question: "Who Are Timmy's Fairy God Parents?",
+        answers: [
+           "Sparkle & Avalon",
+           "Cosmo & Wanda",
+           "Poof & Sparky",
+           "Blonda & Fairwinkle"
+        ],
         correctAnswer: "1"
       },
       {
-        question: "What Color is Earth?",
+        question: "Who is Rocko's Best Friend?",
         answers: [
-           "answer4",
-           "answer5",
-           "answer6"
+           "Heffer Wolfe",
+           "Mr. BigHead",
+           "Filburt Turtles",
+           "Bev BigHead",
+           
+        ],
+        correctAnswer: "0"
+      },
+
+     {
+        question: "Who is Secretly in Love with Arnold?",
+        answers: [
+           "Phoebe",
+           "Rhonda",
+           "Nadine",
+           "Helga"
         ],
         correctAnswer: "3"
       },
+
       {
-        question: "Where is Waldo really?",
+        question: "Which Cast Member Was in All Seasons of All That",
         answers: [
-           "answer7",
-           "answer8",
-           "answer9",
-           "answer10"
+           "Amanda Bynes",
+           "Kel Mitchell",
+           "Keenan Thompson",
+           "Josh Server"
         ],
-        correctAnswer: "2"
+        correctAnswer: "3"
       }
 ];
 
-console.log(myQuestions[2].correctAnswer); 
+// console.log(myQuestions[2].correctAnswer); 
 
 
 
 // FUNCTIONS
 
-// When the page loads...
+// When the page loads....
+$(document).ready(function(){
+    // We click the start button..
+    $("#start-button").click(function(){
+        // And launches the quiz
+        buildQuiz();
+    });
 
-    // We run a function that 
+});
+
+
+// We run a function that checks users choice against correct answer
+
+$(document).on("click","#answers", questionCheck);
+
+
+function questionCheck () {
+ 
+ // We set variables so we can determine which button in which row the user clicked
+  var radioSet = $(this).attr("name"); //retrieves name of row
+  var buttonRow = radioSet.charAt(8).trim();
+  var userAnswer = $('input:checked').val()
+
+  
+  console.log({userAnswer});
+  // console.log(myQuestions[buttonRow].correctAnswer);
+
+
+  // We compare the value of the button clicked to the correct answer
+  if(userAnswer === myQuestions[buttonRow].correctAnswer){
+    quiz.correctAnswers++;
+    
+    
+  }
+  else {
+    quiz.wrongAnswers++
+    // console.log("incorrect");
+  }
+
+  // console.log(userAnswer);
+  // console.log(quiz.correctAnswers)
+  // console.log(quiz.wrongAnswers)
+
+  // console.log(radioSet);
+  // console.log(buttonRow);
+
+}
+
+
+
 function buildQuiz(){
-
-    //Calls the countdown functions...
+    //Starts the countdown
     countdown();
     startCountdown();
-
+    // Dynamically replaces the Start Now button
+    $("#quiz-container").html('<center><h3>HOW WELL DO YOU KNOW THESE NICKELODEON SHOWS?</h3></center>')
+   
+    // And populates the quiz
     for (i=0; i<myQuestions.length; i++){
-
-      $("#quiz-container").append('<div id="q' + i +'"></div>');
+      $("#quiz-container").append('<center><div class="questions" id="q' + i +'"></div><center>');
       $("#q" + i).append(myQuestions[i].question);
      
       for (j = 0; j < 4; j++) {
-        $('<input type="radio" name="dynradio" />').appendTo("#q" + i);
-      }
-
-      // ???? for (var j=0; j<myQuestions.length; j++){ 
-      //  var radioInput = $('<input>').attr({
-      //   type: 'radio',
-      //   name 'rbtnCount',
-      //   });
-      //  $("#q" + i).append(radioInput);????
-
-      //  }
-
+        $('<input id="answers" class="radio" type="radio" name="dynradio' + (i) + '" value="' + (j) + '">' + myQuestions[i].answers[j] + '</input> _______________________').appendTo("#q" + i);
       }
 
     }
+    // Dynamically creates new "DONE"
+    var newButton = $("<button id='stop-button' type='button' class='btn btn-default'>DONE</button>");
+    $("#quiz-container").append(newButton);
 
-   
+    
+}
+          
 
-//     for (i = 0; i < 20; i++) {
-//     $('<input type="radio" name="dynradio" />').appendTo('.your_container');
-// }
-//     // ..and dynamically builds out the quiz and renders it to "#quiz-container"
-//     $('#q1').html(myQuestions[0].question);
-//     $('#q2').html(myQuestions[1].question);
-//     $('#q3').html(myQuestions[2].question);
-
-//     for (i=0; i<4;i++) {}
-//       var radioInput = $('<input>').attr({
-//       type: 'radio',
-//       name: 'rbtnCount'
-//       })
-//       
-
-      
-
-
-
-buildQuiz();
 //We declare a function to start the countdown
 function startCountdown() {
-  showQuiz = setInterval(countdown, 1000);
+  showQuiz = setInterval(countdown, 10000);
 }
 
 //We declare a function to stop the countdown
@@ -124,6 +182,7 @@ function countdown() {
     $("#display-timer").html("<h2>" + quiz.time + "</h2>");
 
 
+
 //  Once number hits zero...
     if (quiz.time === 0) {
       // Countdown stops.
@@ -131,25 +190,32 @@ function countdown() {
       // Timer is replaces with text
       $("#display-timer").html("<h4>ALL DONE</h4>");
       // Quiz is replaced with scores/quiz data
-      $("#quiz-container").html("<h4>QUIZ RESULTS WILL REPLACE QUIZ HERE</h4>");
+      $("#quiz-container").html("<h4>Correct Answers: " + quiz.correctAnswers + "</h4>");
+      $("#quiz-container").append("<h4>Wrong Answers: " + quiz.wrongAnswers + "</h4>");
 
 
-} 
+    } 
 }
 
+// We declare a function to stop the quiz if the user is done
+$(document).on("click","#stop-button", forceStop);
 
-    //PIECES TO WORK ON
-      //setting 1st on click function
-      // 
+function forceStop() {
+  
+      stopCountdown();
+      // Timer is replaces with text
+      $("#display-timer").html("<h4>ALL DONE</h4>");
+      // Quiz is replaced with scores/quiz data
+      $("#quiz-container").html("<h4>Correct Answers: " + quiz.correctAnswers + "</h4>");
+      $("#quiz-container").append("<h4>Wrong Answers: " + quiz.wrongAnswers + "</h4>");
+}      
 
-      // We load a form with questions and answers with "radio button functionality"
 
-      // We load a button at the bottom of the page called "DONE"
+// PSEUDOCODE
 
-    // If the timer hits 0, or if the user answers all questions and pressed done, we start evaluation process
+// Have event listener listen for only 1 clicked button
+// Calculate and display unanswered questions
+// Display radio buttons in line
 
-      // Evaluation process calculates increments the following values by 1 : correct answers, wrong answers and unanswered questions
 
-    // New elements load to the DOM
-      // We display the text All done!
-      // We display final game results
+

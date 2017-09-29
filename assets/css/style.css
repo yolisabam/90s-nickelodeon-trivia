@@ -1,3 +1,35 @@
-* {
-  border: 1px solid darkgrey;
+
+#main-jumbotron {
+  background-image: url(../images/nickbackground.jpg);
+
+}
+
+.radio {
+  
+}
+
+input {
+  margin-top: 10px;
+}
+
+#start-button {
+  background-image: url(../images/start.png);
+  border:none;
+
+}
+
+.questions {
+  font-weight:bold;
+  display: inline-block;
+
+}
+
+body {
+  background-image: url(../images/nickbackground.jpg);
+
+}
+
+h1, h2, h3, h4{
+  font-family: 'Keania One', cursive;
+  color:white;
 }
